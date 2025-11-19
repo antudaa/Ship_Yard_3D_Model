@@ -11,7 +11,7 @@ export default function App() {
       style={{ width: "100vw", minHeight: "100vh" }}
     >
       {/* Controls Info */}
-      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm p-4 rounded-lg shadow-lg z-10 max-w-sm">
+      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm p-10 rounded-lg shadow-lg z-10 max-w-sm">
         <h2 className="mb-2 font-semibold">🏭 Shipyard Facility 3D Map</h2>
         <div className="text-sm space-y-1">
           <p>
@@ -30,7 +30,7 @@ export default function App() {
       </div>
 
       {/* Legend */}
-      <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-4 rounded-lg shadow-lg z-10">
+      <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-10 rounded-lg shadow-lg z-10">
         <h3 className="mb-2 font-semibold">Legend</h3>
         <div className="text-sm space-y-1">
           <div className="flex items-center gap-2">

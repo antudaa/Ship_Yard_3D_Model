@@ -9,6 +9,7 @@ import { Gate } from "./Gate";
 import { Barge } from "./Barge";
 import { OpenBuilding } from "./OpenStorageBuilding";
 import { StackingPad19, StackingPad20 } from "./StackingPads";
+import { NonFerrousOpenStorage27 } from "./NonFerrousOpenStorage";
 
 const ROAD_W = 4;
 
@@ -277,6 +278,11 @@ export function ShipyardFacility() {
         size={[ROAD_W, 0.1, 60]}
       />
 
+      <Road
+        position={[50, 0, -30]}
+        size={[ROAD_W, 0.1, 60]}
+      />
+
       {/* <Road
         position={[CENTRAL_ROAD_X, 0, vCenterZ]}
         size={[ROAD_W, 0.1, roadLenZ]}
@@ -398,6 +404,20 @@ export function ShipyardFacility() {
           5) TOP RIGHT – 23, 25, 24, 43, 29
          ======================================================= */}
       <Building
+        position={[WEST_ROAD_X + 5, 0, TOP_ROAD_Z - 134]}
+        size={[10, 2, 4]}
+        color="#78716c"
+        label="1 - Asbestos Handling Facility"
+      />
+
+      <Building
+        position={[WEST_ROAD_X + 16, 0, TOP_ROAD_Z - 128]}
+        size={[2, 2, 2]}
+        color="#78716c"
+        label="53 - Workers Resting Zone Beside Working Area"
+      />
+
+      <Building
         position={[WEST_ROAD_X + 35, 0, TOP_ROAD_Z - 135]}
         size={[24, 10, 20]}
         color="#b45309"
@@ -427,45 +447,45 @@ export function ShipyardFacility() {
         label="24 - Medical Centre"
       />
 
-      {/* <Building
-        position={[WEST_ROAD_X + 102, 0, TOP_ROAD_Z - 12]}
-        size={[6, 8, 8]}
+      <Building
+        position={[WEST_ROAD_X + 100, 0, TOP_ROAD_Z - 128]}
+        size={[10, 8, 8]}
         color="#78716c"
-        label="43"
-      /> */}
+        label="43 - Water Treatment Plant"
+      />
 
-      {/* <Building
-        position={[WEST_ROAD_X + 120, 0, TOP_ROAD_Z - 12]}
-        size={[20, 10, 18]}
+      <Building
+        position={[WEST_ROAD_X + 125, 0, TOP_ROAD_Z - 133]}
+        size={[35, 10, 18]}
         color="#a16207"
         label="29 - Workers Dining & Accommodation"
-      /> */}
+      />
 
       {/* =======================================================
           6) 41 / 40 / 26 BLOCK (same X as admin, higher up)
          ======================================================= */}
-      {/* <Building
-        position={[ADMIN_X, 0, MID_ROAD_Z + 5]}
-        size={[18, 14, 28]}
+      <Building
+        position={[60, 0, MID_ROAD_Z + -38]}
+        size={[14, 14, 32]}
         color="#92400e"
         label="41 - Warehouse"
       />
       <Building
-        position={[ADMIN_X, 0, MID_ROAD_Z + 32]}
-        size={[14, 12, 22]}
+        position={[74, 0, MID_ROAD_Z + -38]}
+        size={[10, 12, 32]}
         color="#b45309"
         label="40 - Training Centre"
       />
       <Building
-        position={[ADMIN_X, 0, MID_ROAD_Z + 58]}
-        size={[16, 15, 28]}
+        position={[88, 0, MID_ROAD_Z + -38]}
+        size={[12, 15, 32]}
         color="#d97706"
         label="26 - Mosque"
-      /> */}
+      />
 
       {/* PPE room & weight bridge just below the 41/40/26 block */}
       <Building
-        position={[ADMIN_X - 18, 0, MID_ROAD_Z - 10]}
+        position={[ADMIN_X - 10, 0, MID_ROAD_Z - 10]}
         size={[8, 5, 8]}
         color="#a8a29e"
         label="37 - PPE Room"
@@ -487,8 +507,8 @@ export function ShipyardFacility() {
          ======================================================= */}
       {/* Right of central road */}
       <OpenStorage
-        position={[CENTRAL_ROAD_X - 37, 0, MID_ROAD_Z - 30]}
-        size={[50, 16, 65]}
+        position={[CENTRAL_ROAD_X - 42, 0, MID_ROAD_Z - 30]}
+        size={[50, 16, 52]}
         label="30 - Oily Piece Cleaning Station"
         wallHeight={12}
         rotation={[0, Math.PI / 2, 0]}
@@ -562,8 +582,8 @@ export function ShipyardFacility() {
 
       {/* Left of central road */}
       <OpenStorage
-        position={[CENTRAL_ROAD_X - 37, 0, MID_ROAD_Z - -30]}
-        size={[50, 16, 65]}
+        position={[CENTRAL_ROAD_X - 42, 0, MID_ROAD_Z - -30]}
+        size={[50, 16, 52]}
         label="31 - Oily Piece Cleaning Station"
         wallHeight={12}
         rotation={[0, Math.PI / 2, 0]}   // ⬅️ rotated
@@ -627,6 +647,10 @@ export function ShipyardFacility() {
         label="55 Workers Resting Zone Beside Working Area"
       />
 
+      <NonFerrousOpenStorage27
+        position={[CENTRAL_ROAD_X + 15, 0, MID_ROAD_Z + -30]}
+      />
+
       {/* <Crane
         position={[CENTRAL_ROAD_X - 16, 0, MID_ROAD_Z - 30]}
         height={24}
@@ -644,12 +668,12 @@ export function ShipyardFacility() {
 
       {/* 19 – Stacking pad with plate thickness bays + side emergency route */}
       <StackingPad19
-        position={[CENTRAL_ROAD_X - 20, 0, BOTTOM_ROAD_Z + 18]}
+        position={[CENTRAL_ROAD_X - -25, 0, BOTTOM_ROAD_Z + 75]}
       />
 
       {/* 20 – Stacking pad with bays + bottom emergency route + garden */}
       <StackingPad20
-        position={[CENTRAL_ROAD_X - 20, 0, BOTTOM_ROAD_Z + 38]}
+        position={[CENTRAL_ROAD_X - -25, 0, BOTTOM_ROAD_Z + 105]}
       />
 
       {/* Placeholder if you later want an info panel for selectedBuilding */}

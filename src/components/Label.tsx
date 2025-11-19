@@ -1,24 +1,35 @@
-// src/components/Label.tsx
-import { Text } from "@react-three/drei";
+import { Billboard, Text } from "@react-three/drei";
+
+type Vec3 = [number, number, number];
 
 interface LabelProps {
-  position: [number, number, number];
-  text: string;
-  className?: string; // kept for compatibility with old props, not used
+  position: Vec3;
+  text?: string;
+  className?: string;
 }
 
 export function Label({ position, text }: LabelProps) {
+  if (!text) return null;
+
   return (
-    <Text
+    <Billboard
       position={position}
-      fontSize={2}
-      color="#111827"          // dark gray
-      anchorX="center"
-      anchorY="bottom"
-      outlineWidth={0.04}
-      outlineColor="white"
+      follow
+      lockX={false}
+      lockY={false}
+      lockZ={false}
     >
-      {text}
-    </Text>
+      <Text
+        fontSize={1.6}
+        color="#111827"
+        anchorX="center"
+        anchorY="middle"
+        outlineWidth={0.035}
+        outlineColor="#f9fafb"
+        renderOrder={999}
+      >
+        {text}
+      </Text>
+    </Billboard>
   );
 }
