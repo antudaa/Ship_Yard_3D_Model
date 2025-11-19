@@ -1,4 +1,6 @@
-import { Label } from './Label';
+// src/components/Gate.tsx
+import { useState } from "react";
+import { Label } from "./Label";
 
 interface GateProps {
   position: [number, number, number];
@@ -7,12 +9,30 @@ interface GateProps {
   isSmall?: boolean;
 }
 
-export function Gate({ position, label, rotation, isSmall = false }: GateProps) {
+export function Gate({
+  position,
+  label,
+  rotation,
+  isSmall = false,
+}: GateProps) {
   const width = isSmall ? 6 : 12;
   const height = isSmall ? 5 : 8;
 
+  const [hovered, setHovered] = useState(false);
+
   return (
-    <group position={position} rotation={rotation}>
+    <group
+      position={position}
+      rotation={rotation}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        setHovered(true);
+      }}
+      onPointerOut={(e) => {
+        e.stopPropagation();
+        setHovered(false);
+      }}
+    >
       {/* Gate Posts */}
       <mesh position={[-width / 2, height / 2, 0]} castShadow>
         <boxGeometry args={[0.8, height, 0.8]} />
@@ -39,12 +59,10 @@ export function Gate({ position, label, rotation, isSmall = false }: GateProps) 
         <meshStandardMaterial color="#78716c" metalness={0.6} />
       </mesh>
 
-      {/* Label */}
-      <Label 
-        position={[position[0], position[1] + height + 2, position[2]]} 
-        text={label}
-        className="bg-gray-800 text-white"
-      />
+      {/* Hover Label */}
+      {hovered && (
+        <Label position={[0, height + 2, 0]} text={label} />
+      )}
     </group>
   );
 }

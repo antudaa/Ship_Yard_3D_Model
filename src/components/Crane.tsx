@@ -1,4 +1,6 @@
-import { Label } from './Label';
+// src/components/Crane.tsx
+import { useState } from "react";
+import { Label } from "./Label";
 
 interface CraneProps {
   position: [number, number, number];
@@ -8,8 +10,20 @@ interface CraneProps {
 }
 
 export function Crane({ position, height, color, label }: CraneProps) {
+  const [hovered, setHovered] = useState(false);
+
   return (
-    <group position={position}>
+    <group
+      position={position}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        setHovered(true);
+      }}
+      onPointerOut={(e) => {
+        e.stopPropagation();
+        setHovered(false);
+      }}
+    >
       {/* Base */}
       <mesh position={[0, 1, 0]} castShadow>
         <boxGeometry args={[3, 2, 3]} />
@@ -46,12 +60,10 @@ export function Crane({ position, height, color, label }: CraneProps) {
         <meshStandardMaterial color="#fbbf24" />
       </mesh>
 
-      {/* Label */}
-      <Label 
-        position={[position[0], position[1] + height + 3, position[2]]} 
-        text={label}
-        className="bg-red-600 text-white"
-      />
+      {/* Hover Label */}
+      {hovered && (
+        <Label position={[0, height + 3, 0]} text={label} />
+      )}
     </group>
   );
 }

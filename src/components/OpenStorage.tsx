@@ -1,4 +1,6 @@
-import { Label } from './Label';
+// src/components/OpenStorage.tsx
+import { useState } from "react";
+import { Label } from "./Label";
 
 interface OpenStorageProps {
   position: [number, number, number];
@@ -7,11 +9,27 @@ interface OpenStorageProps {
   wallHeight: number;
 }
 
-export function OpenStorage({ position, size, label, wallHeight }: OpenStorageProps) {
-  const [width, _, depth] = size;
-  
+export function OpenStorage({
+  position,
+  size,
+  label,
+  wallHeight,
+}: OpenStorageProps) {
+  const [width, , depth] = size;
+  const [hovered, setHovered] = useState(false);
+
   return (
-    <group position={position}>
+    <group
+      position={position}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        setHovered(true);
+      }}
+      onPointerOut={(e) => {
+        e.stopPropagation();
+        setHovered(false);
+      }}
+    >
       {/* Floor */}
       <mesh position={[0, 0.1, 0]} receiveShadow>
         <boxGeometry args={[width, 0.2, depth]} />
@@ -30,8 +48,10 @@ export function OpenStorage({ position, size, label, wallHeight }: OpenStoragePr
         <meshStandardMaterial color="#78716c" />
       </mesh>
 
-      {/* Label */}
-      <Label position={[position[0], position[1] + wallHeight + 2, position[2]]} text={label} />
+      {/* Hover Label */}
+      {hovered && (
+        <Label position={[0, wallHeight + 2, 0]} text={label} />
+      )}
     </group>
   );
 }

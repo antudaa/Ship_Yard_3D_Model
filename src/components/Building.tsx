@@ -1,4 +1,6 @@
-import { Label } from './Label';
+// src/components/Building.tsx
+import { useState } from "react";
+import { Label } from "./Label";
 
 interface BuildingProps {
   position: [number, number, number];
@@ -9,13 +11,35 @@ interface BuildingProps {
   onClick?: () => void;
 }
 
-export function Building({ position, size, color, label, icon, onClick }: BuildingProps) {
+export function Building({
+  position,
+  size,
+  color,
+  label,
+  icon,
+  onClick,
+}: BuildingProps) {
   const [width, height, depth] = size;
+  const [hovered, setHovered] = useState(false);
 
   return (
-    <group position={position}>
+    <group
+      position={position}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        setHovered(true);
+      }}
+      onPointerOut={(e) => {
+        e.stopPropagation();
+        setHovered(false);
+      }}
+    >
       {/* Main Building */}
-      <mesh position={[0, height / 2, 0]} castShadow onClick={onClick}>
+      <mesh
+        position={[0, height / 2, 0]}
+        castShadow
+        onClick={onClick}
+      >
         <boxGeometry args={[width, height, depth]} />
         <meshStandardMaterial color={color} />
       </mesh>
@@ -26,13 +50,29 @@ export function Building({ position, size, color, label, icon, onClick }: Buildi
         <meshStandardMaterial color={color} roughness={0.3} />
       </mesh>
 
-      {/* Label */}
-      <Label position={[position[0], position[1] + height + 2, position[2]]} text={label} />
+      {/* Optional icon on roof (simple little box, you can enhance later) */}
+      {icon && (
+        <mesh position={[0, height + 1.2, 0]} castShadow>
+          <boxGeometry args={[2, 0.5, 2]} />
+          <meshStandardMaterial color="#e5e7eb" />
+        </mesh>
+      )}
+
+      {/* Hover Label (LOCAL position, not world) */}
+      {hovered && (
+        <Label position={[0, height + 2, 0]} text={label} />
+      )}
     </group>
   );
 }
 
-// Label component for reuse
-Building.Label = function BuildingLabel({ position, text }: { position: [number, number, number]; text: string }) {
+// Helper label component you use in ShipyardFacility on custom groups
+Building.Label = function BuildingLabel({
+  position,
+  text,
+}: {
+  position: [number, number, number];
+  text: string;
+}) {
   return <Label position={position} text={text} />;
 };

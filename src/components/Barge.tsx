@@ -1,4 +1,6 @@
-import { Label } from './Label';
+// src/components/Barge.tsx
+import { useState } from "react";
+import { Label } from "./Label";
 
 interface BargeProps {
   position: [number, number, number];
@@ -6,13 +8,22 @@ interface BargeProps {
   label: string;
 }
 
-export function Barge({
-  position,
-  rotation,
-  label,
-}: BargeProps) {
+export function Barge({ position, rotation, label }: BargeProps) {
+  const [hovered, setHovered] = useState(false);
+
   return (
-    <group position={position} rotation={rotation}>
+    <group
+      position={position}
+      rotation={rotation}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        setHovered(true);
+      }}
+      onPointerOut={(e) => {
+        e.stopPropagation();
+        setHovered(false);
+      }}
+    >
       {/* Main flat platform */}
       <mesh position={[0, 1.5, 0]} castShadow>
         <boxGeometry args={[20, 3, 10]} />
@@ -41,12 +52,10 @@ export function Barge({
         <meshStandardMaterial color="#d6d3d1" />
       </mesh>
 
-      {/* Label */}
-      <Label
-        position={[position[0], position[1] + 10, position[2]]}
-        text={label}
-        className="bg-gray-700 text-white"
-      />
+      {/* Hover Label */}
+      {hovered && (
+        <Label position={[0, 10, 0]} text={label} />
+      )}
     </group>
   );
 }
