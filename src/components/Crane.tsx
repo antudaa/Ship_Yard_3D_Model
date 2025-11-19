@@ -7,14 +7,22 @@ interface CraneProps {
   height: number;
   color: string;
   label: string;
+  rotation?: [number, number, number]; // ⬅️ NEW
 }
 
-export function Crane({ position, height, color, label }: CraneProps) {
+export function Crane({
+  position,
+  height,
+  color,
+  label,
+  rotation = [0, 0, 0], // ⬅️ default
+}: CraneProps) {
   const [hovered, setHovered] = useState(false);
 
   return (
     <group
       position={position}
+      rotation={rotation}            // ⬅️ use it here
       onPointerOver={(e) => {
         e.stopPropagation();
         setHovered(true);
@@ -61,9 +69,7 @@ export function Crane({ position, height, color, label }: CraneProps) {
       </mesh>
 
       {/* Hover Label */}
-      {hovered && (
-        <Label position={[0, height + 3, 0]} text={label} />
-      )}
+      {hovered && <Label position={[0, height + 3, 0]} text={label} />}
     </group>
   );
 }

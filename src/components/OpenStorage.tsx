@@ -7,6 +7,7 @@ interface OpenStorageProps {
   size: [number, number, number]; // [width, wallHeight, depth]
   label: string;
   wallHeight: number;
+  rotation?: [number, number, number]; // ⬅️ NEW
 }
 
 export function OpenStorage({
@@ -14,13 +15,15 @@ export function OpenStorage({
   size,
   label,
   wallHeight,
+  rotation = [0, 0, 0],
 }: OpenStorageProps) {
-  const [width, , depth] = size;
   const [hovered, setHovered] = useState(false);
+  const [width, , depth] = size;
 
   return (
     <group
       position={position}
+      rotation={rotation}
       onPointerOver={(e) => {
         e.stopPropagation();
         setHovered(true);
@@ -48,7 +51,7 @@ export function OpenStorage({
         <meshStandardMaterial color="#78716c" />
       </mesh>
 
-      {/* Hover Label */}
+      {/* Hover Label (local coords so rotation works) */}
       {hovered && (
         <Label position={[0, wallHeight + 2, 0]} text={label} />
       )}

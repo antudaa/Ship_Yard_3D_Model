@@ -1,14 +1,14 @@
-// src/components/Building.tsx
 import { useState } from "react";
 import { Label } from "./Label";
 
 interface BuildingProps {
   position: [number, number, number];
-  size: [number, number, number]; // [width, height, depth]
+  size: [number, number, number];
   color: string;
   label: string;
   icon?: string;
   onClick?: () => void;
+  children?: React.ReactNode;
 }
 
 export function Building({
@@ -16,11 +16,11 @@ export function Building({
   size,
   color,
   label,
-  icon,
   onClick,
+  children,
 }: BuildingProps) {
-  const [width, height, depth] = size;
   const [hovered, setHovered] = useState(false);
+  const [width, height, depth] = size;
 
   return (
     <group
@@ -35,11 +35,7 @@ export function Building({
       }}
     >
       {/* Main Building */}
-      <mesh
-        position={[0, height / 2, 0]}
-        castShadow
-        onClick={onClick}
-      >
+      <mesh position={[0, height / 2, 0]} castShadow onClick={onClick}>
         <boxGeometry args={[width, height, depth]} />
         <meshStandardMaterial color={color} />
       </mesh>
@@ -50,23 +46,16 @@ export function Building({
         <meshStandardMaterial color={color} roughness={0.3} />
       </mesh>
 
-      {/* Optional icon on roof (simple little box, you can enhance later) */}
-      {icon && (
-        <mesh position={[0, height + 1.2, 0]} castShadow>
-          <boxGeometry args={[2, 0.5, 2]} />
-          <meshStandardMaterial color="#e5e7eb" />
-        </mesh>
-      )}
+      {/* Custom children (e.g. compartments, small sub-structures) */}
+      {children}
 
-      {/* Hover Label (LOCAL position, not world) */}
-      {hovered && (
-        <Label position={[0, height + 2, 0]} text={label} />
-      )}
+      {/* Hover Label */}
+      {hovered && <Label position={[0, height + 2, 0]} text={label} />}
     </group>
   );
 }
 
-// Helper label component you use in ShipyardFacility on custom groups
+// Label component for reuse with world coordinates
 Building.Label = function BuildingLabel({
   position,
   text,

@@ -94,19 +94,19 @@ export default function App() {
           {/* Yard ground (LAND) – only under the yard */}
           <mesh
             rotation={[-Math.PI / 2, 0, 0]}
-            position={[20, -0.1, 0]} // center of the yard
+            position={[28, -0.1, 0]} // center of the yard
             receiveShadow
           >
-            <planeGeometry args={[170, 320]} />
+            <planeGeometry args={[160, 220]} />
             <meshStandardMaterial color="#8b7355" />
           </mesh>
 
           {/* Sea (WATER) – only on one side with ships & barge */}
           <mesh
             rotation={[-Math.PI / 2, 0, 0]}
-            position={[-105, -0.12, 0]}
+            position={[-92, -0, 0]}
           >
-            <planeGeometry args={[80, 320]} />
+            <planeGeometry args={[80, 220]} />
             <meshStandardMaterial
               color="#1e3a8a"
               opacity={0.9}
